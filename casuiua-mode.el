@@ -46,7 +46,7 @@
       (let* ((buffer (get-buffer-create "*uiua-repl*"))
              (proc-alive (comint-check-proc buffer))
              (process (get-buffer-process buffer)))
-        (if buffer
+        (if (and proc-alive buffer)
             (progn
               (comint-send-region process region-start region-end)
               (comint-send-string process "\n"))

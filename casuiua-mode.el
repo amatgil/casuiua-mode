@@ -66,16 +66,27 @@
 ;;; END casuiua-mode CONFIG
 
 ;; Faces
-(defface casuiua-noadic-function-face   '((t (:foreground "#ed5e6a"))) "Noadic function")
-(defface casuiua-monadic-function-face  '((t (:foreground "#95d16a"))) "Monadic function")
-(defface casuiua-dyadic-function-face   '((t (:foreground "#54b0fc"))) "Dyadic function")
-(defface casuiua-triadic-function-face  '((t (:foreground "#8078f1"))) "Triadic function")
-(defface casuiua-tetradic-function-face '((t (:foreground "#f576d8"))) "Tetradic function")
-(defface casuiua-monadic-modifier-face  '((t (:foreground "#f0c36f"))) "Monadic modifier")
-(defface casuiua-dyadic-modifier-face   '((t (:foreground "#cc6be9"))) "Dyadic modifier")
-(defface casuiua-triadic-modifier-face  '((t (:foreground "#F5A9B8"))) "Triadic modifier")
-(defface casuiua-uiua-number-face       '((t (:foreground "#eeaa55"))) "Uiua number")
-(defface casuiua-uiua-module-face       '((t (:foreground "#d7be8c"))) "Uiua module")
+;; (defface casuiua-noadic-function-face   '((t (:foreground "#ed5e6a"))) "Noadic function")
+;; (defface casuiua-monadic-function-face  '((t (:foreground "#95d16a"))) "Monadic function")
+;; (defface casuiua-dyadic-function-face   '((t (:foreground "#54b0fc"))) "Dyadic function")
+;; (defface casuiua-triadic-function-face  '((t (:foreground "#8078f1"))) "Triadic function")
+;; (defface casuiua-tetradic-function-face '((t (:foreground "#f576d8"))) "Tetradic function")
+;; (defface casuiua-monadic-modifier-face  '((t (:foreground "#f0c36f"))) "Monadic modifier")
+;; (defface casuiua-dyadic-modifier-face   '((t (:foreground "#cc6be9"))) "Dyadic modifier")
+;; (defface casuiua-triadic-modifier-face  '((t (:foreground "#F5A9B8"))) "Triadic modifier")
+;; (defface casuiua-uiua-number-face       '((t (:foreground "#eeaa55"))) "Uiua number")
+;; (defface casuiua-uiua-module-face       '((t (:foreground "#d7be8c"))) "Uiua module")
+(defface casuiua-noadic-function-face   '((t (:foreground "#f38ba8"))) "Noadic function")
+(defface casuiua-monadic-function-face  '((t (:foreground "#a6e3a1"))) "Monadic function")
+(defface casuiua-dyadic-function-face   '((t (:foreground "#89b4fa"))) "Dyadic function")
+(defface casuiua-triadic-function-face  '((t (:foreground "#f5c2e7"))) "Triadic function")
+(defface casuiua-tetradic-function-face '((t (:foreground "#f2cdcd"))) "Tetradic function")
+(defface casuiua-monadic-modifier-face  '((t (:foreground "#f9e2af"))) "Monadic modifier")
+(defface casuiua-dyadic-modifier-face   '((t (:foreground "#cba6f7"))) "Dyadic modifier")
+(defface casuiua-triadic-modifier-face  '((t (:foreground "#94e2d5"))) "Triadic modifier")
+(defface casuiua-uiua-comment           '((t (:foreground "#313244"))) "Uiua comment")
+(defface casuiua-uiua-number-face       '((t (:foreground "#fab387"))) "Uiua number")
+(defface casuiua-uiua-module-face       '((t (:foreground "#6c7086"))) "Uiua module")
 
 
 ;;; START LSP CONFIGURATION
@@ -98,6 +109,7 @@
             ("monadic_modifier" . casuiua-monadic-modifier-face)
             ("dyadic_modifier" . casuiua-dyadic-modifier-face)
             ("triadic_modifier" . casuiua-triadic-modifier-face)
+            ("comment" . casuiua-uiua-comment-face)
             ("uiua_module" . casuiua-uiua-module-face)
             ("uiua_number" . casuiua-uiua-number-face)))
     (add-hook 'casuiua-mode-hook

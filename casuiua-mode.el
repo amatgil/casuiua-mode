@@ -7,7 +7,7 @@
 ; * DONE: hook up lsp to mode
 ; ** TODO Syntax highlighting 
 ; ** DONE inlay hints and reporting
-; * TODO: Add command that opens repl and uiua watch on the side (75/25 on height) .. somehow
+; * TODO: Add command that opens repl and uiua watch on the side (75/25 on height)
 
 ;;; START casuiua-mode CONFIG
 (defcustom casuiua-uiua-cli-cmd "uiua"

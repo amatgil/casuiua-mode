@@ -84,7 +84,7 @@
 (defface casuiua-monadic-modifier-face  '((t (:foreground "#f9e2af"))) "Monadic modifier")
 (defface casuiua-dyadic-modifier-face   '((t (:foreground "#cba6f7"))) "Dyadic modifier")
 (defface casuiua-triadic-modifier-face  '((t (:foreground "#94e2d5"))) "Triadic modifier")
-(defface casuiua-uiua-comment           '((t (:foreground "#313244"))) "Uiua comment")
+(defface casuiua-uiua-comment-face      '((t (:foreground "#313244"))) "Uiua comment")
 (defface casuiua-uiua-number-face       '((t (:foreground "#fab387"))) "Uiua number")
 (defface casuiua-uiua-module-face       '((t (:foreground "#6c7086"))) "Uiua module")
 

@@ -5,7 +5,7 @@
 ; ** DONE Open repl
 ; ** DONE data to repl
 ; * DONE: hook up lsp to mode
-; ** TODO Syntax highlighting 
+; ** DONE Syntax highlighting 
 ; ** DONE inlay hints and reporting
 ; * TODO: Add command that opens repl and uiua watch on the side (75/25 on height)
 ; * TODO: defgroup
@@ -106,70 +106,6 @@
                 (lsp-semantic-tokens-mode  ; this must be reran in the buffer?
                  )))))
 
-
-
-;; (See https://gist.github.com/magistau/4c12ab54663f911e6a7560a807b63f1c)
-;; (use-package eglot
-;;   :config
-;;   (add-to-list 'eglot-server-programs
-;;                '(uiua-ts-mode . ("uiua" "lsp")))
-;;   (setq-default eglot-workspace-configuration
-;;                 '(:uiua.inlayHints.values :json-false
-;;                   :uiua.inlayHints.bindingSignatureHints t
-;;                   :uiua.inlayHints.inlineSignatureHints t
-;;                   :uiua.inlayHints.inlineHintMinLength 3))
-;;   :hook ((prog-mode . eglot-ensure)))
-;; (use-package eglot-semtok
-;;   :config
-;;   (setq eglot-semtok-faces
-;; 	(append
-;; 	 '("uiua_number" (("" "" (:foreground "#ea5")))
-;; 	   "noadic_function" (("" "" (:foreground "#ed5e6a")))
-;; 	   "monadic_function" (("" "" (:foreground "#95d16a")))
-;; 	   "dyadic_function" (("" "" (:foreground "#54b0fc")))
-;; 	   "triadic_function" (("" "" (:foreground "#8078f1")))
-;; 	   "tetradic_function" (("" "" (:foreground "#f576d8")))
-;; 	   "monadic_modifier" (("" "" (:foreground "#f0c36f")))
-;; 	   "dyadic_modifier" (("" "" (:foreground "#cc6be9")))
-;; 	   "triadic_modifier" (("" "" (:foreground "#F5A9B8")))
-;; 	   "uiua_module" (("" "" (:foreground "#d7be8c"))))
-;; 	 eglot-semtok-faces))
-;;   :hook ((eglot-connect . eglot-semtok-on-connected)
-;; 	 (uiua-ts-mode . eglot-semtok-font-lock-init)))
-
-
 ;;; END LSP CONFIGURATION
 
 (provide 'casuiua-mode)
-
-;; (lsp-request "textDocument/semanticTokens/full"
-;;              `(:textDocument ,(lsp--text-document-identifier)))
-
-
-;; (lsp-request "textDocument/semanticTokens/didOpen"
-;;              `(:textDocument ,(lsp--text-document-identifier)))
-
-
-                                        ; tokenTypes: [comment parameter uiua_number uiua_string stack_function noadic_function monadic_function dyadic_function triadic_function tetradic_function monadic_modifier dyadic_modifier triadic_modifier uiua_module comment parameter number lifetime none property string method none none type keyword none namespace]
-
-
-;; (setq lsp-enable-semantic-highlighting t) ;; this might be redundant, but try it
-;; (setq lsp-font-lock-enable t)             ;; MUST be t
-;; (setq lsp-log-io t)
-;; (defun my-lsp-fix-semantic-token-legend (orig-fn &rest args)
-;;   "Fix duplicated tokenTypes in semanticTokensProvider legend."
-;;   (let ((caps (apply orig-fn args)))
-;;     (when-let* ((provider (gethash "semanticTokensProvider" caps))
-;;                 (legend (gethash "legend" provider))
-;;                 (types (gethash "tokenTypes" legend)))
-;;       ;; Remove duplicates but keep order
-;;       (puthash "tokenTypes" (vconcat (delete-dups (append types nil))) legend))
-;;     caps))
-
-;(advice-add 'lsp--server-capabilities :around #'my-lsp-fix-semantic-token-legend)
-
-;; (advice-add 'lsp-semantic-tokens--refresh :before
-;;             (lambda (&rest _args) (message "lsp-semantic-tokens--refresh triggered")))
-;; (member #'lsp-semantic-tokens--on-change after-change-functions)
-;; (add-hook 'after-change-functions #'lsp-semantic-tokens--on-change nil t)
-

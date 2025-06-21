@@ -72,7 +72,6 @@
   (progn
     ;; "casuiua-mode" corresponds to language "uiua"
     (add-to-list 'lsp-language-id-configuration '(casuiua-mode . "uiua"))
-
     (lsp-register-client (make-lsp-client
                           :new-connection (lsp-stdio-connection `(,casuiua-uiua-cli-cmd "lsp"))
                           :activation-fn (lsp-activate-on "uiua")

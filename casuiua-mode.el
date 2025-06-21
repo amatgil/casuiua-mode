@@ -63,13 +63,6 @@
   "C-c C-c" #'casuiua-send-region-to-repl)
 
 (define-derived-mode casuiua-mode prog-mode "CasUiua" "Major mode for Uiua")
-
-;; We should not need treesitter, lsp should give highlighting automatically
-;; (when (require 'tree-sitter nil 'noerror)
-;;   (add-hook 'casuiua-mode-hook #'tree-sitter-mode)
-;;   (add-hook 'casuiua-mode-hook #'tree-sitter-hl-mode))
-
-
 ;;; END casuiua-mode CONFIG
 
 ;; Faces
@@ -97,21 +90,21 @@
                           :activation-fn (lsp-activate-on "uiua")
                           :server-id 'uiua-lsp))
     (setq lsp-semantic-token-faces
-          '(("noadic_function" . casuiua-uiua-noadic-function-face)
-            ("monadic_function" . casuiua-uiua-monadic-function-face)
-            ("dyadic_function" . casuiua-uiua-dyadic-function-face)
-            ("triadic_function" . casuiua-uiua-triadic-function-face)
-            ("tetradic_function" . casuiua-uiua-tetradic-function-face)
-            ("monadic_modifier" . casuiua-uiua-monadic-modifier-face)
-            ("dyadic_modifier" . casuiua-uiua-dyadic-modifier-face)
-            ("triadic_modifier" . casuiua-uiua-triadic-modifier-face)
-            ("uiua_module" . casuiua-uiua-module-face)))
-    ;; (add-hook 'casuiua-mode-hook
-    ;;           (lambda ()
-    ;;             (lsp)
-    ;;             (lsp-semantic-tokens-mode  ; this must be reran in the buffer?
-    ;;              )))))
-    ))
+          '(("noadic_function" . casuiua-noadic-function-face)
+            ("monadic_function" . casuiua-monadic-function-face)
+            ("dyadic_function" . casuiua-dyadic-function-face)
+            ("triadic_function" . casuiua-triadic-function-face)
+            ("tetradic_function" . casuiua-tetradic-function-face)
+            ("monadic_modifier" . casuiua-monadic-modifier-face)
+            ("dyadic_modifier" . casuiua-dyadic-modifier-face)
+            ("triadic_modifier" . casuiua-triadic-modifier-face)
+            ("uiua_module" . casuiua-uiua-module-face)
+            ("uiua_number" . casuiua-uiua-number-face)))
+    (add-hook 'casuiua-mode-hook
+              (lambda ()
+                (lsp)
+                (lsp-semantic-tokens-mode  ; this must be reran in the buffer?
+                 )))))
 
 
 

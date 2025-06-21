@@ -1,10 +1,12 @@
 * casuiua-mode
-** Usage
+Featuring semantic syntax highlighting (from the lsp, if available), vital in an unstable and dynamic language like uiua!
 
+Of course, it also registers the language for =lsp-mode= (again, only if available).
+
+** Usage
 Activate with =casuiua-mode=, from there keybinds are:
 
 - =C-c C-r=: Open repl
 - =C-c C-c=: Send region to repl
 - =C-c C-w=: Open uiua watch
 
-The file, when evaluated, also registers the language for =lsp-mode= when it's available.

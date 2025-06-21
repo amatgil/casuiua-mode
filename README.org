@@ -1,0 +1,10 @@
+* casuiua-mode
+** Usage
+
+Activate with =casuiua-mode=, from there keybinds are:
+
+- =C-c C-r=: Open repl
+- =C-c C-c=: Send region to repl
+- =C-c C-w=: Open uiua watch
+
+The file, when evaluated, also registers the language for =lsp-mode= when it's available.

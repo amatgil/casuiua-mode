@@ -73,15 +73,17 @@
 ;;; END casuiua-mode CONFIG
 
 ;; Faces
-(defface casuiua-noadic-function-face
-  '((t (:foreground "red")))
-  "Noadic function")
-(defface casuiua-monadic-function-face
-  '((t (:foreground "green")))
-  "Face for monadic functions.")
-(defface casuiua-dyadic-function-face
-  '((t (:foreground "deep sky blue")))
-  "Dyadic function")
+(defface casuiua-noadic-function-face   '((t (:foreground "#ed5e6a"))) "Noadic function")
+(defface casuiua-monadic-function-face  '((t (:foreground "#95d16a"))) "Monadic function")
+(defface casuiua-dyadic-function-face   '((t (:foreground "#54b0fc"))) "Dyadic function")
+(defface casuiua-triadic-function-face  '((t (:foreground "#8078f1"))) "Triadic function")
+(defface casuiua-tetradic-function-face '((t (:foreground "#f576d8"))) "Tetradic function")
+(defface casuiua-monadic-modifier-face  '((t (:foreground "#f0c36f"))) "Monadic modifier")
+(defface casuiua-dyadic-modifier-face   '((t (:foreground "#cc6be9"))) "Dyadic modifier")
+(defface casuiua-triadic-modifier-face  '((t (:foreground "#F5A9B8"))) "Triadic modifier")
+(defface casuiua-uiua-number-face       '((t (:foreground "#eeaa55"))) "Uiua number")
+(defface casuiua-uiua-module-face       '((t (:foreground "#d7be8c"))) "Uiua module")
+
 
 ;;; START LSP CONFIGURATION
 ;; (See https://emacs-lsp.github.io/lsp-mode/page/adding-new-language/)
@@ -95,12 +97,21 @@
                           :activation-fn (lsp-activate-on "uiua")
                           :server-id 'uiua-lsp))
     (setq lsp-semantic-token-faces
-          '(("noadic_function" . casuiua-noadic-function-face)
-            ("monadic_function" . casuiua-monadic-function-face)
-            ("dyadic_function" . casuiua-dyadic-function-face)))
-    (add-hook 'casuiua-mode-hook '(lambda () (progn
-                                          (lsp)
-                                          (lsp-semantic-tokens-mode))))))
+          '(("noadic_function" . casuiua-uiua-noadic-function-face)
+            ("monadic_function" . casuiua-uiua-monadic-function-face)
+            ("dyadic_function" . casuiua-uiua-dyadic-function-face)
+            ("triadic_function" . casuiua-uiua-triadic-function-face)
+            ("tetradic_function" . casuiua-uiua-tetradic-function-face)
+            ("monadic_modifier" . casuiua-uiua-monadic-modifier-face)
+            ("dyadic_modifier" . casuiua-uiua-dyadic-modifier-face)
+            ("triadic_modifier" . casuiua-uiua-triadic-modifier-face)
+            ("uiua_module" . casuiua-uiua-module-face)))
+    ;; (add-hook 'casuiua-mode-hook
+    ;;           (lambda ()
+    ;;             (lsp)
+    ;;             (lsp-semantic-tokens-mode  ; this must be reran in the buffer?
+    ;;              )))))
+    ))
 
 
 

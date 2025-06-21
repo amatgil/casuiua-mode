@@ -8,6 +8,7 @@
 ; ** TODO Syntax highlighting 
 ; ** DONE inlay hints and reporting
 ; * TODO: Add command that opens repl and uiua watch on the side (75/25 on height)
+; * TODO: defgroup
 
 ;;; START casuiua-mode CONFIG
 (defcustom casuiua-uiua-cli-cmd "uiua"
@@ -63,7 +64,24 @@
 
 (define-derived-mode casuiua-mode prog-mode "CasUiua" "Major mode for Uiua")
 
+;; We should not need treesitter, lsp should give highlighting automatically
+;; (when (require 'tree-sitter nil 'noerror)
+;;   (add-hook 'casuiua-mode-hook #'tree-sitter-mode)
+;;   (add-hook 'casuiua-mode-hook #'tree-sitter-hl-mode))
+
+
 ;;; END casuiua-mode CONFIG
+
+;; Faces
+(defface casuiua-noadic-function-face
+  '((t (:foreground "red")))
+  "Noadic function")
+(defface casuiua-monadic-function-face
+  '((t (:foreground "green")))
+  "Face for monadic functions.")
+(defface casuiua-dyadic-function-face
+  '((t (:foreground "deep sky blue")))
+  "Dyadic function")
 
 ;;; START LSP CONFIGURATION
 ;; (See https://emacs-lsp.github.io/lsp-mode/page/adding-new-language/)
@@ -75,7 +93,16 @@
     (lsp-register-client (make-lsp-client
                           :new-connection (lsp-stdio-connection `(,casuiua-uiua-cli-cmd "lsp"))
                           :activation-fn (lsp-activate-on "uiua")
-                          :server-id 'uiua-lsp))))
+                          :server-id 'uiua-lsp))
+    (setq lsp-semantic-token-faces
+          '(("noadic_function" . casuiua-noadic-function-face)
+            ("monadic_function" . casuiua-monadic-function-face)
+            ("dyadic_function" . casuiua-dyadic-function-face)))
+    (add-hook 'casuiua-mode-hook '(lambda () (progn
+                                          (lsp)
+                                          (lsp-semantic-tokens-mode))))))
+
+
 
 ;; (See https://gist.github.com/magistau/4c12ab54663f911e6a7560a807b63f1c)
 ;; (use-package eglot
@@ -110,3 +137,35 @@
 ;;; END LSP CONFIGURATION
 
 (provide 'casuiua-mode)
+
+;; (lsp-request "textDocument/semanticTokens/full"
+;;              `(:textDocument ,(lsp--text-document-identifier)))
+
+
+;; (lsp-request "textDocument/semanticTokens/didOpen"
+;;              `(:textDocument ,(lsp--text-document-identifier)))
+
+
+                                        ; tokenTypes: [comment parameter uiua_number uiua_string stack_function noadic_function monadic_function dyadic_function triadic_function tetradic_function monadic_modifier dyadic_modifier triadic_modifier uiua_module comment parameter number lifetime none property string method none none type keyword none namespace]
+
+
+;; (setq lsp-enable-semantic-highlighting t) ;; this might be redundant, but try it
+;; (setq lsp-font-lock-enable t)             ;; MUST be t
+;; (setq lsp-log-io t)
+;; (defun my-lsp-fix-semantic-token-legend (orig-fn &rest args)
+;;   "Fix duplicated tokenTypes in semanticTokensProvider legend."
+;;   (let ((caps (apply orig-fn args)))
+;;     (when-let* ((provider (gethash "semanticTokensProvider" caps))
+;;                 (legend (gethash "legend" provider))
+;;                 (types (gethash "tokenTypes" legend)))
+;;       ;; Remove duplicates but keep order
+;;       (puthash "tokenTypes" (vconcat (delete-dups (append types nil))) legend))
+;;     caps))
+
+;(advice-add 'lsp--server-capabilities :around #'my-lsp-fix-semantic-token-legend)
+
+;; (advice-add 'lsp-semantic-tokens--refresh :before
+;;             (lambda (&rest _args) (message "lsp-semantic-tokens--refresh triggered")))
+;; (member #'lsp-semantic-tokens--on-change after-change-functions)
+;; (add-hook 'after-change-functions #'lsp-semantic-tokens--on-change nil t)
+

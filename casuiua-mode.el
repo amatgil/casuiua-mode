@@ -4,9 +4,9 @@
 ; * DONE: Create map
 ; ** DONE Open repl
 ; ** DONE data to repl
-; * TODO: hook up lsp to mode
+; * DONE: hook up lsp to mode
 ; ** TODO Syntax highlighting 
-; ** TODO inlay hints and reporting
+; ** DONE inlay hints and reporting
 ; * TODO: Add command that opens repl and uiua watch on the side (75/25 on height) .. somehow
 
 ;;; START casuiua-mode CONFIG
@@ -58,7 +58,8 @@
 (defvar-keymap casuiua-mode-map
   :parent prog-mode-map
   "C-c C-r" #'casuiua-open-repl
-  "C-c C-w" #'casuiua-open-watch)
+  "C-c C-w" #'casuiua-open-watch
+  "C-c C-c" #'casuiua-send-region-to-repl)
 
 (define-derived-mode casuiua-mode prog-mode "CasUiua" "Major mode for Uiua")
 
@@ -67,13 +68,15 @@
 ;;; START LSP CONFIGURATION
 ;; (See https://emacs-lsp.github.io/lsp-mode/page/adding-new-language/)
 
-;; "casuiua-mode" corresponds to language "uiua"
-(add-to-list 'lsp-language-id-configuration '(casuiua-mode . "uiua"))
+(when (require 'lsp-mode nil 'noerror)
+  (progn
+    ;; "casuiua-mode" corresponds to language "uiua"
+    (add-to-list 'lsp-language-id-configuration '(casuiua-mode . "uiua"))
 
-(lsp-register-client (make-lsp-client
-                      :new-connection (lsp-stdio-connection `(,casuiua-uiua-cli-cmd "lsp"))
-                      :activation-fn (lsp-activate-on "uiua")
-                      :server-id 'uiua-lsp))
+    (lsp-register-client (make-lsp-client
+                          :new-connection (lsp-stdio-connection `(,casuiua-uiua-cli-cmd "lsp"))
+                          :activation-fn (lsp-activate-on "uiua")
+                          :server-id 'uiua-lsp))))
 
 ;; (See https://gist.github.com/magistau/4c12ab54663f911e6a7560a807b63f1c)
 ;; (use-package eglot

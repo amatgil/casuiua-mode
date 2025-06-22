@@ -48,70 +48,12 @@
     (when buffer
       (pop-to-buffer buffer))))
 
-(defun casuiua-send-region-to-repl (region-start region-end)
-  (interactive "r")
-  (if (use-region-p)
-      (let* ((buffer (get-buffer-create "*uiua-repl*"))
-             (proc-alive (comint-check-proc buffer))
-             (process (get-buffer-process buffer)))
-        (if (and proc-alive buffer)
-            (progn
-              (comint-send-region process region-start region-end)
-              (comint-send-string process "\n"))
-          (message "No repl running")))
-    (message "No region active")))
-
-(defun casuiua-comment-region (region-start region-end)
-  (interactive "r")
-  (when (> region-start region-end)
-    (let (tmp) (setq tmp region-start
-                     region-start region-end
-                     region-end tmp)))
-  (if (use-region-p)
-      (save-excursion ; Prepend "# " in front of every line in region
-        (goto-char region-start)
-        (while (< (point) region-end)
-          (beginning-of-line)
-          (insert "# ")
-          (forward-line 1)))
-    (save-excursion ; Prepend "# " just in the line of point
-      (beginning-of-line)
-      (insert "# "))))
-
-(defun casuiua-uncomment-region (region-start region-end)
-  (interactive "r")
-  (when (> region-start region-end)
-    (let (tmp) (setq tmp region-start
-                     region-start region-end
-                     region-end tmp)))
-  (if (use-region-p)
-      (save-excursion
-        (goto-char region-start)
-        (while (< (point) region-end)
-          (beginning-of-line)
-          (when (and (eq ?# (char-after))
-                     (eq ?\s (char-after (1+ (point)))))
-            (delete-char 2))
-          (forward-line 1)))
-    (save-excursion
-      (beginning-of-line)
-      (when (and (eq ?# (char-after)) (eq ?\s (char-after (1+ (point)))))
-        (delete-char 2)))))
-
-(defun casuiua-comment-region-dwim (region-start region-end)
-  (interactive "r")
-  (save-excursion
-    (beginning-of-line)
-    (if (eq ?# (char-after)))
-        (casuiua-uncomment-region region-start region-end)
-      (casuiua-comment-region reigon-start region-end))))
 
 (defvar-keymap casuiua-mode-map
   :parent prog-mode-map
   "C-c C-r" #'casuiua-open-repl
   "C-c C-w" #'casuiua-open-watch
-  "C-c C-c" #'casuiua-send-region-to-repl
-  )
+  "C-c C-c" #'casuiua-send-region-to-repl)
 
 (define-derived-mode casuiua-mode prog-mode "CasUiua" "Major mode for Uiua")
 

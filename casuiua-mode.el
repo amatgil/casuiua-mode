@@ -78,12 +78,40 @@
       (beginning-of-line)
       (insert "# "))))
 
+(defun casuiua-uncomment-region (region-start region-end)
+  (interactive "r")
+  (when (> region-start region-end)
+    (let (tmp) (setq tmp region-start
+                     region-start region-end
+                     region-end tmp)))
+  (if (use-region-p)
+      (save-excursion
+        (goto-char region-start)
+        (while (< (point) region-end)
+          (beginning-of-line)
+          (when (and (eq ?# (char-after))
+                     (eq ?\s (char-after (1+ (point)))))
+            (delete-char 2))
+          (forward-line 1)))
+    (save-excursion
+      (beginning-of-line)
+      (when (and (eq ?# (char-after)) (eq ?\s (char-after (1+ (point)))))
+        (delete-char 2)))))
+
+(defun casuiua-comment-region-dwim (region-start region-end)
+  (interactive "r")
+  (save-excursion
+    (beginning-of-line)
+    (if (eq ?# (char-after)))
+        (casuiua-uncomment-region region-start region-end)
+      (casuiua-comment-region reigon-start region-end))))
+
 (defvar-keymap casuiua-mode-map
   :parent prog-mode-map
   "C-c C-r" #'casuiua-open-repl
   "C-c C-w" #'casuiua-open-watch
   "C-c C-c" #'casuiua-send-region-to-repl
-  "M-;"     #'casuiua-comment-region)
+  )
 
 (define-derived-mode casuiua-mode prog-mode "CasUiua" "Major mode for Uiua")
 

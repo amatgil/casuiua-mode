@@ -23,7 +23,7 @@
 
 (defun casuiua-open-repl ()
   (interactive)
-  (let* ((buffer (get-buffer))
+  (let* ((buffer (get-buffer-create "*uiua-repl"))
          (proc-alive (comint-check-proc buffer))
          (process (get-buffer-process buffer)))
     (unless proc-alive ;; recreate if dead

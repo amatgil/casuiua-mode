@@ -6,7 +6,7 @@ Of course, it also registers the language for =lsp-mode= (again, only if availab
 ** Usage
 Activate with =casuiua-mode=, from there keybinds are:
 
-- =C-c C-r=: Open repl
+- =C-c C-e=: Open repl
 - =C-c C-c=: Send region to repl
 - =C-c C-w=: Open uiua watch
 - =M-;=: (Un-)Comment out region (dwim)

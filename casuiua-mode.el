@@ -23,7 +23,7 @@
 
 (defun casuiua-open-repl ()
   (interactive)
-  (let* ((buffer (get-buffer-create "*uiua-repl"))
+  (let* ((buffer (get-buffer-create "*uiua-repl*"))
          (proc-alive (comint-check-proc buffer))
          (process (get-buffer-process buffer)))
     (unless proc-alive ;; recreate if dead
@@ -48,10 +48,23 @@
     (when buffer
       (pop-to-buffer buffer))))
 
+(defun casuiua-send-region-to-repl (region-start region-end)
+  (interactive "r")
+  (if (use-region-p)
+      (let* ((buffer (get-buffer-create "*uiua-repl*"))
+             (proc-alive (comint-check-proc buffer))
+             (process (get-buffer-process buffer)))
+        (if (and proc-alive buffer)
+            (progn
+              (comint-send-region process region-start region-end)
+              (comint-send-string process "\n"))
+          (message "No repl running")))
+    (message "No region active")))
+
 
 (defvar-keymap casuiua-mode-map
   :parent prog-mode-map
-  "C-c C-r" #'casuiua-open-repl
+  "C-c C-e" #'casuiua-open-repl
   "C-c C-w" #'casuiua-open-watch
   "C-c C-c" #'casuiua-send-region-to-repl)
 

@@ -8,8 +8,8 @@
 ; ** DONE Syntax highlighting 
 ; ** DONE inlay hints and reporting
 ; * TODO: Add command that opens repl and uiua watch on the side (75/25 on height)
-; * TODO: defgroup
-; * TODO: add M-; casuiua-comment-region
+; * DONE: defgroup
+; * DONE: add M-; casuiua-comment-region
 
 ;;; START casuiua-mode CONFIG
 (defgroup casuiua-group nil
@@ -82,6 +82,8 @@
 (defface casuiua-uiua-comment-face      '((t (:foreground "#313244"))) "Uiua comment"      :group 'casuiua-group)
 (defface casuiua-uiua-number-face       '((t (:foreground "#fab387"))) "Uiua number"       :group 'casuiua-group)
 (defface casuiua-uiua-module-face       '((t (:foreground "#6c7086"))) "Uiua module"       :group 'casuiua-group)
+
+(add-hook 'casuiua-mode-hook (lambda () (setq-local comment-start "# ")))
 ;;; END casuiua-mode CONFIG
 
 
@@ -111,7 +113,7 @@
     (add-hook 'casuiua-mode-hook
               (lambda ()
                 (lsp)
-                (lsp-semantic-tokens-mode  ; this must be reran in the buffer?
+                (lsp-semantic-tokens-mode ; this must be reran in the buffer?
                  )))))
 
 ;;; END LSP CONFIGURATION
